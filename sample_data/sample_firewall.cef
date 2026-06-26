@@ -1,0 +1,25 @@
+<14>1 2025-06-15T08:14:00Z fw01 FW 1.0 - - CEF:0|Acme|Firewall|1.0|ALLOW-OUT|Outbound Connection|3|src=10.0.1.9 dst=8.8.8.8 dpt=443 act=allow rt=1749975240000
+<14>1 2025-06-15T08:43:00Z fw01 FW 1.0 - - CEF:0|Acme|Firewall|1.0|ALLOW-OUT|Outbound Connection|3|src=10.0.1.19 dst=8.8.8.8 dpt=443 act=allow rt=1749976980000
+<14>1 2025-06-15T08:57:00Z fw01 FW 1.0 - - CEF:0|Acme|Firewall|1.0|ALLOW-OUT|Outbound Connection|3|src=10.0.1.21 dst=8.8.8.8 dpt=443 act=allow rt=1749977820000
+<14>1 2025-06-15T09:11:00Z fw01 FW 1.0 - - CEF:0|Acme|Firewall|1.0|ALLOW-OUT|Outbound Connection|3|src=10.0.1.24 dst=8.8.8.8 dpt=443 act=allow rt=1749978660000
+<14>1 2025-06-15T09:22:00Z fw01 FW 1.0 - - CEF:0|Acme|Firewall|1.0|ALLOW-OUT|Outbound Connection|3|src=10.0.1.29 dst=8.8.8.8 dpt=443 act=allow rt=1749979320000
+<14>1 2025-06-15T09:58:00Z fw01 FW 1.0 - - CEF:0|Acme|Firewall|1.0|ALLOW-OUT|Outbound Connection|3|src=10.0.1.19 dst=8.8.8.8 dpt=443 act=allow rt=1749981480000
+<14>1 2025-06-15T10:07:00Z fw01 FW 1.0 - - CEF:0|Acme|Firewall|1.0|ALLOW-OUT|Outbound Connection|3|src=10.0.1.28 dst=8.8.8.8 dpt=443 act=allow rt=1749982020000
+<14>1 2025-06-15T10:34:00Z fw01 FW 1.0 - - CEF:0|Acme|Firewall|1.0|ALLOW-OUT|Outbound Connection|3|src=10.0.1.21 dst=8.8.8.8 dpt=443 act=allow rt=1749983640000
+<14>1 2025-06-15T10:37:00Z fw01 FW 1.0 - - CEF:0|Acme|Firewall|1.0|ALLOW-OUT|Outbound Connection|3|src=10.0.1.22 dst=8.8.8.8 dpt=443 act=allow rt=1749983820000
+<14>1 2025-06-15T10:56:00Z fw01 FW 1.0 - - CEF:0|Acme|Firewall|1.0|ALLOW-OUT|Outbound Connection|3|src=10.0.1.10 dst=8.8.8.8 dpt=443 act=allow rt=1749984960000
+<14>1 2025-06-15T11:23:00Z fw01 FW 1.0 - - CEF:0|Acme|Firewall|1.0|ALLOW-OUT|Outbound Connection|3|src=10.0.1.20 dst=8.8.8.8 dpt=443 act=allow rt=1749986580000
+<14>1 2025-06-15T11:32:00Z fw01 FW 1.0 - - CEF:0|Acme|Firewall|1.0|ALLOW-OUT|Outbound Connection|3|src=10.0.1.13 dst=8.8.8.8 dpt=443 act=allow rt=1749987120000
+<14>1 2025-06-15T12:00:00Z fw01 FW 1.0 - - CEF:0|Acme|Firewall|1.0|ALLOW-OUT|Outbound Connection|3|src=10.0.1.12 dst=8.8.8.8 dpt=443 act=allow rt=1749988800000
+<14>1 2025-06-15T12:20:00Z fw01 FW 1.0 - - CEF:0|Acme|Firewall|1.0|ALLOW-OUT|Outbound Connection|3|src=10.0.1.25 dst=8.8.8.8 dpt=443 act=allow rt=1749990000000
+<14>1 2025-06-15T12:20:00Z fw01 FW 1.0 - - CEF:0|Acme|Firewall|1.0|ALLOW-OUT|Outbound Connection|3|src=10.0.1.29 dst=8.8.8.8 dpt=443 act=allow rt=1749990000000
+<14>1 2025-06-15T09:54:00Z fw01 FW 1.0 - - CEF:0|Acme|Firewall|1.0|BLOCK-IN|Inbound Connection Blocked|7|src=185.220.101.47 dst=10.0.1.5 dpt=22 act=block rt=1749981240000
+<14>1 2025-06-15T09:49:00Z fw01 FW 1.0 - - CEF:0|Acme|Firewall|1.0|BLOCK-IN|Inbound Connection Blocked|7|src=185.220.101.47 dst=10.0.1.5 dpt=22 act=block rt=1749980940000
+<14>1 2025-06-15T09:51:00Z fw01 FW 1.0 - - CEF:0|Acme|Firewall|1.0|BLOCK-IN|Inbound Connection Blocked|7|src=185.220.101.47 dst=10.0.1.5 dpt=22 act=block rt=1749981060000
+<14>1 2025-06-15T09:59:00Z fw01 FW 1.0 - - CEF:0|Acme|Firewall|1.0|BLOCK-IN|Inbound Connection Blocked|7|src=185.220.101.47 dst=10.0.1.5 dpt=22 act=block rt=1749981540000
+<14>1 2025-06-15T09:49:00Z fw01 FW 1.0 - - CEF:0|Acme|Firewall|1.0|BLOCK-IN|Inbound Connection Blocked|7|src=185.220.101.47 dst=10.0.1.5 dpt=22 act=block rt=1749980940000
+<14>1 2025-06-15T09:53:00Z fw01 FW 1.0 - - CEF:0|Acme|Firewall|1.0|BLOCK-IN|Inbound Connection Blocked|7|src=185.220.101.47 dst=10.0.1.5 dpt=22 act=block rt=1749981180000
+<14>1 2025-06-15T10:02:00Z fw01 FW 1.0 - - CEF:0|Acme|Firewall|1.0|BLOCK-IN|Inbound Connection Blocked|7|src=185.220.101.47 dst=10.0.1.5 dpt=22 act=block rt=1749981720000
+<14>1 2025-06-15T09:53:00Z fw01 FW 1.0 - - CEF:0|Acme|Firewall|1.0|BLOCK-IN|Inbound Connection Blocked|7|src=185.220.101.47 dst=10.0.1.5 dpt=22 act=block rt=1749981180000
+<14>1 2025-06-15T10:22:00Z fw01 FW 1.0 - - CEF:0|Acme|Firewall|1.0|ALLOW-IN|Inbound Connection Allowed|8|src=185.220.101.47 dst=10.0.1.5 dpt=22 act=allow rt=1749982920000
+<14>1 2025-06-15T14:09:00Z fw01 FW 1.0 - - CEF:0|Acme|Firewall|1.0|EXFIL|Large Data Transfer|9|src=10.0.1.5 dst=185.220.101.47 dpt=443 act=allow bytesOut=52428800 rt=1749996540000
