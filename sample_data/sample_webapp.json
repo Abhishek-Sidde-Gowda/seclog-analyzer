@@ -1,0 +1,254 @@
+[
+  {
+    "timestamp": "2025-06-15T08:21:00+00:00",
+    "host": "SRV-DC01",
+    "username": "agarcia",
+    "source_ip": "10.0.1.13",
+    "event_type": "login_success",
+    "message": "User authenticated via web portal",
+    "session_id": "sess_515011"
+  },
+  {
+    "timestamp": "2025-06-15T08:22:00+00:00",
+    "host": "SRV-DC01",
+    "username": "mchen",
+    "source_ip": "10.0.1.15",
+    "event_type": "login_success",
+    "message": "User authenticated via web portal",
+    "session_id": "sess_888387"
+  },
+  {
+    "timestamp": "2025-06-15T09:05:00+00:00",
+    "host": "WS-001",
+    "username": "jsmith",
+    "source_ip": "10.0.1.19",
+    "event_type": "login_success",
+    "message": "User authenticated via web portal",
+    "session_id": "sess_751332"
+  },
+  {
+    "timestamp": "2025-06-15T09:12:00+00:00",
+    "host": "WS-001",
+    "username": "jsmith",
+    "source_ip": "10.0.1.22",
+    "event_type": "login_success",
+    "message": "User authenticated via web portal",
+    "session_id": "sess_323508"
+  },
+  {
+    "timestamp": "2025-06-15T09:28:00+00:00",
+    "host": "SRV-DC01",
+    "username": "agarcia",
+    "source_ip": "10.0.1.16",
+    "event_type": "login_success",
+    "message": "User authenticated via web portal",
+    "session_id": "sess_172132"
+  },
+  {
+    "timestamp": "2025-06-15T09:58:00+00:00",
+    "host": "WS-042",
+    "username": "bwilliams",
+    "source_ip": "10.0.1.14",
+    "event_type": "login_success",
+    "message": "User authenticated via web portal",
+    "session_id": "sess_265409"
+  },
+  {
+    "timestamp": "2025-06-15T10:02:00+00:00",
+    "host": "LAPTOP-HR",
+    "username": "bwilliams",
+    "source_ip": "10.0.1.24",
+    "event_type": "login_success",
+    "message": "User authenticated via web portal",
+    "session_id": "sess_946305"
+  },
+  {
+    "timestamp": "2025-06-15T10:26:00+00:00",
+    "host": "LAPTOP-HR",
+    "username": "jsmith",
+    "source_ip": "10.0.1.26",
+    "event_type": "login_success",
+    "message": "User authenticated via web portal",
+    "session_id": "sess_956795"
+  },
+  {
+    "timestamp": "2025-06-15T10:41:00+00:00",
+    "host": "SRV-DC01",
+    "username": "jsmith",
+    "source_ip": "10.0.1.9",
+    "event_type": "login_success",
+    "message": "User authenticated via web portal",
+    "session_id": "sess_377312"
+  },
+  {
+    "timestamp": "2025-06-15T10:45:00+00:00",
+    "host": "WS-001",
+    "username": "kpatel",
+    "source_ip": "10.0.1.9",
+    "event_type": "login_success",
+    "message": "User authenticated via web portal",
+    "session_id": "sess_385577"
+  },
+  {
+    "timestamp": "2025-06-15T11:09:00+00:00",
+    "host": "LAPTOP-HR",
+    "username": "agarcia",
+    "source_ip": "10.0.1.27",
+    "event_type": "login_success",
+    "message": "User authenticated via web portal",
+    "session_id": "sess_459536"
+  },
+  {
+    "timestamp": "2025-06-15T11:24:00+00:00",
+    "host": "SRV-DC01",
+    "username": "kpatel",
+    "source_ip": "10.0.1.20",
+    "event_type": "login_success",
+    "message": "User authenticated via web portal",
+    "session_id": "sess_363319"
+  },
+  {
+    "timestamp": "2025-06-15T12:04:00+00:00",
+    "host": "WS-001",
+    "username": "jsmith",
+    "source_ip": "10.0.1.25",
+    "event_type": "login_success",
+    "message": "User authenticated via web portal",
+    "session_id": "sess_544151"
+  },
+  {
+    "timestamp": "2025-06-15T12:20:00+00:00",
+    "host": "SRV-DC01",
+    "username": "jsmith",
+    "source_ip": "10.0.1.5",
+    "event_type": "login_success",
+    "message": "User authenticated via web portal",
+    "session_id": "sess_449759"
+  },
+  {
+    "timestamp": "2025-06-15T12:36:00+00:00",
+    "host": "WS-042",
+    "username": "bwilliams",
+    "source_ip": "10.0.1.10",
+    "event_type": "login_success",
+    "message": "User authenticated via web portal",
+    "session_id": "sess_877236"
+  },
+  {
+    "timestamp": "2025-06-15T12:44:00+00:00",
+    "host": "LAPTOP-HR",
+    "username": "mchen",
+    "source_ip": "10.0.1.22",
+    "event_type": "login_success",
+    "message": "User authenticated via web portal",
+    "session_id": "sess_110139"
+  },
+  {
+    "timestamp": "2025-06-15T12:51:00+00:00",
+    "host": "WS-001",
+    "username": "agarcia",
+    "source_ip": "10.0.1.22",
+    "event_type": "login_success",
+    "message": "User authenticated via web portal",
+    "session_id": "sess_137778"
+  },
+  {
+    "timestamp": "2025-06-15T13:32:00+00:00",
+    "host": "SRV-DC01",
+    "username": "kpatel",
+    "source_ip": "10.0.1.22",
+    "event_type": "login_success",
+    "message": "User authenticated via web portal",
+    "session_id": "sess_255287"
+  },
+  {
+    "timestamp": "2025-06-15T13:37:00+00:00",
+    "host": "WS-042",
+    "username": "jsmith",
+    "source_ip": "10.0.1.14",
+    "event_type": "login_success",
+    "message": "User authenticated via web portal",
+    "session_id": "sess_482364"
+  },
+  {
+    "timestamp": "2025-06-15T14:10:00+00:00",
+    "host": "WS-001",
+    "username": "bwilliams",
+    "source_ip": "10.0.1.11",
+    "event_type": "login_success",
+    "message": "User authenticated via web portal",
+    "session_id": "sess_815198"
+  },
+  {
+    "timestamp": "2025-06-15T14:33:00+00:00",
+    "host": "WS-042",
+    "username": "mchen",
+    "source_ip": "185.220.101.47",
+    "event_type": "explicit_credential_use",
+    "event_id": "4648",
+    "message": "A logon was attempted using explicit credentials. Target: SRV-DC01"
+  },
+  {
+    "timestamp": "2025-06-15T14:34:00+00:00",
+    "host": "WS-042",
+    "username": "mchen",
+    "source_ip": "185.220.101.47",
+    "event_type": "explicit_credential_use",
+    "event_id": "4648",
+    "message": "A logon was attempted using explicit credentials. Target: SRV-DC01"
+  },
+  {
+    "timestamp": "2025-06-15T14:37:00+00:00",
+    "host": "WS-042",
+    "username": "mchen",
+    "source_ip": "185.220.101.47",
+    "event_type": "explicit_credential_use",
+    "event_id": "4648",
+    "message": "A logon was attempted using explicit credentials. Target: SRV-DC01"
+  },
+  {
+    "timestamp": "2025-06-15T14:37:00+00:00",
+    "host": "WS-042",
+    "username": "mchen",
+    "source_ip": "185.220.101.47",
+    "event_type": "explicit_credential_use",
+    "event_id": "4648",
+    "message": "A logon was attempted using explicit credentials. Target: SRV-DC01"
+  },
+  {
+    "timestamp": "2025-06-15T14:41:00+00:00",
+    "host": "WS-042",
+    "username": "mchen",
+    "source_ip": "185.220.101.47",
+    "event_type": "explicit_credential_use",
+    "event_id": "4648",
+    "message": "A logon was attempted using explicit credentials. Target: SRV-DC01"
+  },
+  {
+    "timestamp": "2025-06-15T14:43:00+00:00",
+    "host": "WS-042",
+    "username": "mchen",
+    "source_ip": "185.220.101.47",
+    "event_type": "explicit_credential_use",
+    "event_id": "4648",
+    "message": "A logon was attempted using explicit credentials. Target: SRV-DC01"
+  },
+  {
+    "timestamp": "2025-06-15T15:23:00+00:00",
+    "host": "SRV-DC01",
+    "username": "SYSTEM",
+    "source_ip": null,
+    "event_type": "service_install",
+    "event_id": "4697",
+    "message": "A service was installed: DisplayName=WindowsUpdateHelper, ImagePath=C:\\Windows\\Temp\\wupd.exe"
+  },
+  {
+    "timestamp": "2025-06-15T15:27:00+00:00",
+    "host": "SRV-DC01",
+    "username": "Administrator",
+    "source_ip": "185.220.101.47",
+    "event_type": "account_created",
+    "event_id": "4720",
+    "message": "A user account was created. New Account: svc_backup$ (possible backdoor)"
+  }
+]

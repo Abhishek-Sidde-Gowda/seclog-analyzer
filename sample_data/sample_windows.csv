@@ -1,0 +1,69 @@
+timestamp,hostname,username,source_ip,event_id,action,message
+2025-06-15 08:17:00,WS-042,bwilliams,10.0.1.21,4624,login_success,User logged on successfully
+2025-06-15 08:42:00,LAPTOP-HR,mchen,10.0.1.11,4624,login_success,User logged on successfully
+2025-06-15 08:54:00,SRV-WEB02,bwilliams,10.0.1.19,4624,login_success,User logged on successfully
+2025-06-15 08:59:00,LAPTOP-HR,agarcia,10.0.1.27,4624,login_success,User logged on successfully
+2025-06-15 09:22:00,WS-042,jsmith,10.0.1.15,4624,login_success,User logged on successfully
+2025-06-15 09:28:00,LAPTOP-HR,mchen,10.0.1.8,4624,login_success,User logged on successfully
+2025-06-15 09:30:00,LAPTOP-HR,agarcia,10.0.1.23,4624,login_success,User logged on successfully
+2025-06-15 09:52:00,WS-001,jsmith,10.0.1.27,4624,login_success,User logged on successfully
+2025-06-15 10:20:00,WS-001,agarcia,10.0.1.7,4624,login_success,User logged on successfully
+2025-06-15 10:43:00,WS-001,bwilliams,10.0.1.7,4624,login_success,User logged on successfully
+2025-06-15 10:46:00,WS-042,bwilliams,10.0.1.26,4624,login_success,User logged on successfully
+2025-06-15 11:00:00,WS-042,agarcia,10.0.1.28,4624,login_success,User logged on successfully
+2025-06-15 11:29:00,LAPTOP-HR,mchen,10.0.1.12,4624,login_success,User logged on successfully
+2025-06-15 11:33:00,WS-001,mchen,10.0.1.16,4624,login_success,User logged on successfully
+2025-06-15 11:40:00,SRV-WEB02,mchen,10.0.1.11,4624,login_success,User logged on successfully
+2025-06-15 11:58:00,SRV-WEB02,mchen,10.0.1.28,4624,login_success,User logged on successfully
+2025-06-15 12:01:00,WS-001,jsmith,10.0.1.17,4624,login_success,User logged on successfully
+2025-06-15 12:01:48,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:03:12,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:03:36,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:03:52,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:04:28,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:05:32,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:05:40,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:05:44,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:06:28,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:09:16,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:10:04,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:14:24,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:14:32,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:15:00,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:16:08,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:16:32,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:16:52,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:17:04,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:20:24,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:20:44,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:20:56,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:21:12,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:22:08,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:22:16,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:22:20,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:22:36,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:23:00,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:25:00,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:27:24,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:28:20,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:29:08,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:29:16,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:30:48,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:30:56,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:32:40,SRV-DC01,Administrator,185.220.101.47,4625,login_failure,Logon failure - unknown username or bad password. Status: 0xC000006D
+2025-06-15 12:36:00,WS-042,mchen,10.0.1.9,4624,login_success,User logged on successfully
+2025-06-15 12:38:00,SRV-DC01,jsmith,10.0.1.12,4624,login_success,User logged on successfully
+2025-06-15 12:58:00,WS-042,bwilliams,10.0.1.19,4624,login_success,User logged on successfully
+2025-06-15 13:07:00,WS-001,mchen,10.0.1.22,4624,login_success,User logged on successfully
+2025-06-15 13:18:00,WS-001,jsmith,10.0.1.7,4624,login_success,User logged on successfully
+2025-06-15 13:20:00,SRV-DC01,Administrator,185.220.101.47,4698,scheduled_task_created,A scheduled task was created. Task: \Microsoft\Windows\svchost32
+2025-06-15 13:29:00,SRV-DC01,Administrator,185.220.101.47,4672,privileged_logon,Special privileges assigned to new logon. Privileges: SeDebugPrivilege SeImpersonatePrivilege
+2025-06-15 13:54:00,SRV-DC01,Administrator,185.220.101.47,1102,audit_log_cleared,The audit log was cleared. Subject: Administrator
+2025-06-15 13:59:00,WS-042,agarcia,10.0.1.18,4624,login_success,User logged on successfully
+2025-06-15 14:00:00,SRV-WEB02,agarcia,10.0.1.17,4624,login_success,User logged on successfully
+2025-06-15 14:15:00,SRV-WEB02,bwilliams,10.0.1.19,4624,login_success,User logged on successfully
+2025-06-15 14:28:00,WS-001,agarcia,10.0.1.17,4624,login_success,User logged on successfully
+2025-06-15 14:39:00,SRV-WEB02,mchen,10.0.1.9,4624,login_success,User logged on successfully
+2025-06-15 14:51:00,SRV-DC01,agarcia,10.0.1.6,4624,login_success,User logged on successfully
+2025-06-15 15:18:00,LAPTOP-HR,jsmith,10.0.1.28,4624,login_success,User logged on successfully
+2025-06-15 15:25:00,WS-001,jsmith,10.0.1.23,4624,login_success,User logged on successfully
