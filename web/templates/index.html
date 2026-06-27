@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SecLog Analyzer — MITRE ATT&CK Detection Dashboard</title>
+<style>
+:root {
+  --bg:#0d1117;--surface:#161b22;--surface2:#1c2128;--border:#30363d;
+  --text:#c9d1d9;--muted:#8b949e;
+  --critical:#ff6b6b;--high:#ffa94d;--medium:#74c0fc;--low:#69db7c;
+  --accent:#58a6ff;--green:#3fb950;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;font-size:14px;min-height:100vh}
+
+/* ── Nav ── */
+nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;height:52px;gap:12px;position:sticky;top:0;z-index:100}
+.brand{font-size:16px;font-weight:700;color:var(--accent);display:flex;align-items:center;gap:8px}
+.brand svg{width:20px;height:20px}
+.tag{font-size:11px;background:#1f2937;border:1px solid var(--border);border-radius:4px;padding:2px 7px;color:var(--muted)}
+.spacer{flex:1}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:600;transition:opacity .15s;text-decoration:none}
+.btn:hover{opacity:.85}
+.btn-primary{background:var(--accent);color:#000}
+.btn-demo{background:#238636;color:#fff}
+.btn-ghost{background:var(--surface2);border:1px solid var(--border);color:var(--text)}
+
+/* ── Layout ── */
+.page{max-width:1400px;margin:0 auto;padding:24px;display:flex;flex-direction:column;gap:20px}
+
+/* ── Upload card ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px}
+.card-title{font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px}
+.drop-zone{border:2px dashed var(--border);border-radius:8px;padding:28px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s}
+.drop-zone:hover,.drop-zone.drag{border-color:var(--accent);background:rgba(88,166,255,.05)}
+.drop-zone input{display:none}
+.drop-zone p{color:var(--muted);margin-top:6px;font-size:12px}
+.btn-row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;align-items:center}
+#file-list{margin-top:10px;font-size:12px;color:var(--muted)}
+
+/* ── Stats grid ── */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px}
+.stat .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.stat .val{font-size:26px;font-weight:700;line-height:1}
+.c-critical{color:var(--critical)}.c-high{color:var(--high)}.c-medium{color:var(--medium)}
+.c-green{color:var(--green)}.c-accent{color:var(--accent)}
+
+/* ── Two-col charts ── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:800px){.two-col{grid-template-columns:1fr}}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:12px}
+.bar-lbl{width:145px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-track{flex:1;background:var(--border);border-radius:3px;height:9px}
+.bar-fill{height:9px;border-radius:3px;transition:width .5s ease}
+.bar-cnt{width:26px;text-align:right;color:var(--muted)}
+
+/* ── Timeline ── */
+.timeline-wrap{overflow-x:auto}
+.timeline-svg text{font-family:'Segoe UI',system-ui,sans-serif;font-size:11px;fill:var(--muted)}
+
+/* ── Parse summary chips ── */
+.chip-row{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:11px;padding:3px 10px;border-radius:12px;background:var(--surface2);border:1px solid var(--border);color:var(--muted)}
+.chip span{color:var(--accent);font-weight:600}
+
+/* ── Alert table ── */
+.table-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.table-header h3{font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.badge{font-size:11px;padding:2px 8px;border-radius:10px;font-weight:700}
+.search-box{margin-left:auto;padding:5px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px;width:200px}
+.search-box:focus{outline:none;border-color:var(--accent)}
+.filter-row{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.fbtn{padding:3px 12px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-size:12px;transition:all .15s}
+.fbtn.active{border-color:var(--accent);color:var(--accent);background:rgba(88,166,255,.1)}
+.fbtn.fc.active{border-color:var(--critical);color:var(--critical);background:rgba(255,107,107,.1)}
+.fbtn.fh.active{border-color:var(--high);color:var(--high);background:rgba(255,169,77,.1)}
+.fbtn.fm.active{border-color:var(--medium);color:var(--medium);background:rgba(116,192,252,.1)}
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);padding:8px 10px;text-align:left;border-bottom:1px solid var(--border);font-weight:600;white-space:nowrap}
+td{padding:8px 10px;border-bottom:1px solid rgba(48,54,61,.5);font-size:12px;vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr.alert-row{cursor:pointer}
+tr.alert-row:hover td{background:rgba(88,166,255,.04)}
+.mono{font-family:'Consolas','Monaco',monospace}
+.sev-badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap}
+.sev-critical{background:rgba(255,107,107,.2);color:var(--critical)}
+.sev-high{background:rgba(255,169,77,.2);color:var(--high)}
+.sev-medium{background:rgba(116,192,252,.2);color:var(--medium)}
+.sev-low{background:rgba(105,219,124,.2);color:var(--low)}
+.mitre-tag{display:inline-block;font-size:10px;background:rgba(88,166,255,.1);border:1px solid rgba(88,166,255,.25);color:var(--accent);border-radius:4px;padding:1px 5px;white-space:nowrap;margin-top:2px}
+.sub-msg{font-size:11px;color:var(--muted);margin-top:2px;white-space:normal}
+.rule-id{font-size:10px;color:var(--muted)}
+.src-tag{font-size:10px;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:3px;padding:1px 4px}
+
+/* ── MITRE heatmap ── */
+.mitre-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+@media(max-width:900px){.mitre-grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:550px){.mitre-grid{grid-template-columns:repeat(2,1fr)}}
+.mitre-cell{border-radius:6px;padding:8px 6px;text-align:center;border:1px solid var(--border);transition:transform .15s,border-color .15s;cursor:default}
+.mitre-cell:hover{transform:scale(1.04);border-color:var(--accent)}
+.mitre-cell .tactic-name{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);line-height:1.2}
+.mitre-cell .tactic-id{font-size:9px;color:var(--muted);opacity:.6;margin-top:2px}
+.mitre-cell .tactic-count{font-size:20px;font-weight:700;margin:4px 0 2px;line-height:1}
+.mitre-cell.hit-0{background:rgba(48,54,61,.4)}
+.mitre-cell.hit-low{background:rgba(255,169,77,.12);border-color:rgba(255,169,77,.3)}
+.mitre-cell.hit-low .tactic-count{color:var(--high)}
+.mitre-cell.hit-med{background:rgba(255,107,107,.15);border-color:rgba(255,107,107,.35)}
+.mitre-cell.hit-med .tactic-count{color:#ff8c42}
+.mitre-cell.hit-high{background:rgba(255,107,107,.28);border-color:rgba(255,107,107,.6)}
+.mitre-cell.hit-high .tactic-count{color:var(--critical)}
+
+/* ── Anomaly table ── */
+.score-bar{display:inline-block;width:50px;height:5px;background:var(--border);border-radius:3px;vertical-align:middle;margin-right:5px}
+.score-fill{height:5px;border-radius:3px;background:linear-gradient(90deg,#3fb950,#ffa94d,#ff6b6b)}
+
+/* ── Detail modal ── */
+#modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(3px);z-index:200;align-items:center;justify-content:center}
+#modal-bg.open{display:flex}
+#modal{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:28px;width:min(680px,95vw);max-height:85vh;overflow-y:auto;position:relative}
+#modal h2{font-size:15px;font-weight:700;margin-bottom:4px}
+#modal .close-btn{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;line-height:1}
+#modal .close-btn:hover{color:var(--text)}
+.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 20px;margin:16px 0}
+.modal-field label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.modal-field p{font-size:13px;margin-top:2px;word-break:break-all}
+.modal-divider{height:1px;background:var(--border);margin:16px 0}
+.raw-box{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:12px;font-size:11px;font-family:monospace;white-space:pre-wrap;word-break:break-all;max-height:180px;overflow-y:auto;color:var(--muted)}
+
+/* ── Loading ── */
+#loading{display:none;position:fixed;inset:0;background:rgba(13,17,23,.75);backdrop-filter:blur(4px);z-index:300;align-items:center;justify-content:center;flex-direction:column;gap:14px}
+#loading.show{display:flex}
+.spinner{width:38px;height:38px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#load-msg{color:var(--muted);font-size:13px}
+
+/* ── Toast ── */
+#toast{position:fixed;bottom:24px;right:24px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:11px 16px;color:var(--text);font-size:13px;transform:translateY(70px);opacity:0;transition:all .3s;z-index:400;max-width:340px}
+#toast.show{transform:translateY(0);opacity:1}
+#toast.err{border-color:var(--critical)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+    </svg>
+    SecLog Analyzer
+  </div>
+  <span class="tag">MITRE ATT&CK</span>
+  <span class="tag">ML Anomaly</span>
+  <span class="tag">5 formats</span>
+  <div class="spacer"></div>
+  <a href="/export/csv" class="btn btn-ghost" id="btn-csv" style="display:none">⬇ CSV</a>
+  <a href="/export/pdf" class="btn btn-ghost" id="btn-pdf" style="display:none">⬇ PDF Report</a>
+</nav>
+
+<div class="page">
+
+  <!-- Upload -->
+  <div class="card">
+    <div class="card-title">Log File Analysis</div>
+    <div class="drop-zone" id="drop-zone">
+      <input type="file" id="file-input" multiple accept=".evtx,.log,.syslog,.txt,.csv,.json,.cef,.access">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" style="margin-bottom:8px">
+        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+      </svg>
+      <div>Drop log files here or <span style="color:var(--accent);cursor:pointer;text-decoration:underline" onclick="document.getElementById('file-input').click()">browse</span></div>
+      <p>Windows EVTX · Syslog · CSV · JSON · Apache/Nginx access logs · CEF</p>
+    </div>
+    <div id="file-list"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" id="btn-analyze">Analyze Files</button>
+      <button class="btn btn-demo" id="btn-demo">⚡ Load Demo Data</button>
+    </div>
+  </div>
+
+  <!-- Parse summary (shown after analysis) -->
+  <div id="parse-card" style="display:none" class="card">
+    <div class="card-title">Files Parsed</div>
+    <div class="chip-row" id="parse-chips"></div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-grid" id="stats-row" style="display:none">
+    <div class="stat"><div class="lbl">Events Parsed</div><div class="val c-green" id="s-events">0</div></div>
+    <div class="stat"><div class="lbl">Total Alerts</div><div class="val c-accent" id="s-alerts">0</div></div>
+    <div class="stat"><div class="lbl">Critical</div><div class="val c-critical" id="s-critical">0</div></div>
+    <div class="stat"><div class="lbl">High</div><div class="val c-high" id="s-high">0</div></div>
+    <div class="stat"><div class="lbl">Medium</div><div class="val c-medium" id="s-medium">0</div></div>
+    <div class="stat"><div class="lbl">Anomalies</div><div class="val c-green" id="s-anom">0</div></div>
+  </div>
+
+  <!-- Charts row -->
+  <div class="two-col" id="charts-row" style="display:none">
+    <div class="card">
+      <div class="card-title">Severity Distribution</div>
+      <div id="sev-bars"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Top Source IPs</div>
+      <div id="ip-bars"></div>
+    </div>
+  </div>
+
+  <!-- MITRE ATT&CK Heatmap -->
+  <div class="card" id="mitre-card" style="display:none">
+    <div class="card-title">MITRE ATT&amp;CK Coverage</div>
+    <div id="mitre-heatmap"></div>
+  </div>
+
+  <!-- Timeline row -->
+  <div class="card" id="timeline-row" style="display:none">
+    <div class="card-title">Alert Timeline (by hour)</div>
+    <div class="timeline-wrap"><canvas id="timeline-canvas" height="130"></canvas></div>
+  </div>
+
+  <!-- Alert table -->
+  <div class="card" id="alerts-card" style="display:none">
+    <div class="table-header">
+      <h3>Detection Alerts</h3>
+      <span class="badge sev-high" id="alert-badge">0</span>
+      <input class="search-box" id="search-box" placeholder="Search alerts…" type="text">
+    </div>
+    <div class="filter-row">
+      <button class="fbtn active" data-sev="all">All</button>
+      <button class="fbtn fc" data-sev="critical">Critical</button>
+      <button class="fbtn fh" data-sev="high">High</button>
+      <button class="fbtn fm" data-sev="medium">Medium</button>
+      <button class="fbtn" data-sev="low">Low</button>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Time (UTC)</th><th>Severity</th><th>Rule / Message</th>
+            <th>MITRE</th><th>User</th><th>Source IP</th><th>Host</th><th>Src</th>
+          </tr>
+        </thead>
+        <tbody id="alerts-tbody"></tbody>
+      </table>
+    </div>
+    <div id="alert-more" style="text-align:center;padding:10px;font-size:12px;color:var(--muted);display:none"></div>
+  </div>
+
+  <!-- Anomaly table -->
+  <div class="card" id="anom-card" style="display:none">
+    <div class="table-header">
+      <h3>Statistical Anomalies</h3>
+      <span class="badge sev-medium" id="anom-badge">0</span>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Score</th><th>Time</th><th>User</th><th>Action</th><th>Source IP</th><th>Reason</th></tr>
+        </thead>
+        <tbody id="anom-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<!-- Detail modal -->
+<div id="modal-bg">
+  <div id="modal">
+    <button class="close-btn" id="modal-close">✕</button>
+    <div id="modal-sev" class="sev-badge" style="margin-bottom:8px"></div>
+    <h2 id="modal-name"></h2>
+    <div id="modal-rule" class="rule-id"></div>
+    <div class="modal-divider"></div>
+    <div class="modal-grid" id="modal-grid"></div>
+    <div class="modal-divider"></div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:6px">MITRE ATT&amp;CK</div>
+    <div id="modal-mitre"></div>
+    <div class="modal-divider"></div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:6px">Alert Description</div>
+    <div id="modal-desc" style="font-size:13px"></div>
+    <div class="modal-divider"></div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:6px">Raw Message</div>
+    <div class="raw-box" id="modal-raw"></div>
+  </div>
+</div>
+
+<div id="loading"><div class="spinner"></div><div id="load-msg">Parsing logs…</div></div>
+<div id="toast"></div>
+
+<script>
+// ── State ─────────────────────────────────────────────────────────────
+let allAlerts = [], currentSev = 'all', searchTerm = '';
+const PAGE = 200;
+
+// ── Drop zone ──────────────────────────────────────────────────────────
+const dz = document.getElementById('drop-zone');
+const fi = document.getElementById('file-input');
+dz.addEventListener('dragover', e=>{e.preventDefault();dz.classList.add('drag')});
+dz.addEventListener('dragleave', ()=>dz.classList.remove('drag'));
+dz.addEventListener('drop', e=>{e.preventDefault();dz.classList.remove('drag');fi.files=e.dataTransfer.files;updateFileList()});
+fi.addEventListener('change', updateFileList);
+function updateFileList(){
+  const names = Array.from(fi.files).map(f=>f.name);
+  document.getElementById('file-list').textContent = names.length ? '📎 '+names.join(' · ') : '';
+}
+
+// ── Buttons ────────────────────────────────────────────────────────────
+document.getElementById('btn-analyze').addEventListener('click', async ()=>{
+  if(!fi.files.length){toast('Select at least one log file.',true);return}
+  const fd = new FormData();
+  for(const f of fi.files) fd.append('logfiles',f);
+  await run('/analyze',fd,'Parsing & analyzing…');
+});
+document.getElementById('btn-demo').addEventListener('click', ()=>run('/demo',new FormData(),'Loading demo attack scenario…'));
+
+async function run(url, body, msg){
+  setLoading(true, msg);
+  try{
+    const r = await fetch(url,{method:'POST',body});
+    const d = await r.json();
+    if(!r.ok){toast(d.error||'Analysis failed',true);return}
+    render(d);
+  }catch(e){toast('Error: '+e.message,true)}
+  finally{setLoading(false)}
+}
+
+// ── Render ─────────────────────────────────────────────────────────────
+function render(d){
+  allAlerts = d.alerts||[];
+  // Stats
+  setText('s-events', d.total_events.toLocaleString());
+  setText('s-alerts', d.total_alerts.toLocaleString());
+  setText('s-critical', d.severity_counts.critical||0);
+  setText('s-high', d.severity_counts.high||0);
+  setText('s-medium', d.severity_counts.medium||0);
+  setText('s-anom', d.total_anomalies.toLocaleString());
+  show('parse-card','stats-row','charts-row','mitre-card','timeline-row','alerts-card','btn-csv','btn-pdf');
+
+  // Parse chips
+  const chips = (d.parse_summary||[]).map(p=>
+    `<span class="chip">${esc(p.file)} <span>${p.events} events</span></span>`).join('');
+  document.getElementById('parse-chips').innerHTML = chips;
+
+  // Bar charts
+  const sevColors={critical:'#ff6b6b',high:'#ffa94d',medium:'#74c0fc',low:'#69db7c'};
+  renderBars('sev-bars', d.severity_counts, sevColors);
+
+  // MITRE heatmap
+  renderMitreHeatmap(d.tactic_counts||{});
+
+  // Timeline canvas
+  drawTimeline(d.timeline||[]);
+
+  // Top IPs
+  renderBars('ip-bars', Object.fromEntries((d.top_ips||[]).map(x=>[x.ip,x.count])), null);
+
+  // Alerts
+  currentSev='all'; searchTerm='';
+  document.getElementById('search-box').value='';
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+  document.querySelector('[data-sev="all"]').classList.add('active');
+  renderAlerts();
+
+  // Anomalies
+  if(d.anomalies&&d.anomalies.length){
+    show('anom-card');
+    setText('anom-badge', d.total_anomalies);
+    document.getElementById('anom-tbody').innerHTML = (d.anomalies||[]).map(a=>{
+      const pct=Math.round(a.score*100);
+      const ts=a.timestamp?a.timestamp.replace('T',' ').slice(0,19):'';
+      return `<tr>
+        <td style="white-space:nowrap">
+          <span class="score-bar"><span class="score-fill" style="width:${pct}%"></span></span>
+          <b>${a.score.toFixed(2)}</b>
+        </td>
+        <td class="mono" style="font-size:11px">${ts}</td>
+        <td class="mono">${esc(a.username)||'—'}</td>
+        <td>${esc(a.action)}</td>
+        <td class="mono">${esc(a.source_ip)||'—'}</td>
+        <td style="font-size:11px;color:var(--muted)">${esc(a.reason)}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  toast(`Done — ${d.total_alerts} alerts, ${d.total_anomalies} anomalies across ${d.total_events} events.`);
+}
+
+function renderAlerts(){
+  const filtered = allAlerts.filter(a=>{
+    if(currentSev!=='all'&&a.severity!==currentSev) return false;
+    if(searchTerm){
+      const q=searchTerm.toLowerCase();
+      return [a.name,a.username,a.source_ip,a.hostname,a.mitre_tactic,
+              a.mitre_technique,a.message,a.rule_id].some(f=>(f||'').toLowerCase().includes(q));
+    }
+    return true;
+  });
+  setText('alert-badge', filtered.length);
+  const visible = filtered.slice(0,PAGE);
+  document.getElementById('alerts-tbody').innerHTML = visible.map((a,i)=>{
+    const ts=a.timestamp?a.timestamp.replace('T',' ').slice(0,19):'';
+    const tech=a.mitre_technique.split('–')[0].trim();
+    return `<tr class="alert-row" data-idx="${allAlerts.indexOf(a)}">
+      <td class="mono" style="font-size:11px;white-space:nowrap">${ts}</td>
+      <td><span class="sev-badge sev-${a.severity}">${a.severity.toUpperCase()}</span></td>
+      <td>
+        <div style="font-weight:600">${esc(a.name)}</div>
+        <div class="sub-msg">${esc(a.message)}</div>
+      </td>
+      <td>
+        <div style="font-size:11px;color:var(--muted)">${esc(a.mitre_tactic)}</div>
+        <span class="mitre-tag">${esc(tech)}</span>
+      </td>
+      <td class="mono">${esc(a.username)||'<span style="color:var(--muted)">—</span>'}</td>
+      <td class="mono">${esc(a.source_ip)||'<span style="color:var(--muted)">—</span>'}</td>
+      <td class="mono" style="font-size:11px">${esc(a.hostname)||'—'}</td>
+      <td><span class="src-tag">${esc(a.log_source)}</span></td>
+    </tr>`;
+  }).join('');
+
+  const more = document.getElementById('alert-more');
+  if(filtered.length>PAGE){
+    more.style.display='';
+    more.textContent=`Showing ${PAGE} of ${filtered.length} — export CSV for full list`;
+  } else { more.style.display='none'; }
+}
+
+// ── Filter + search ────────────────────────────────────────────────────
+document.querySelector('.filter-row').addEventListener('click', e=>{
+  const b = e.target.closest('.fbtn');
+  if(!b) return;
+  currentSev=b.dataset.sev;
+  document.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  renderAlerts();
+});
+document.getElementById('search-box').addEventListener('input', e=>{
+  searchTerm=e.target.value.trim();
+  renderAlerts();
+});
+
+// ── Row click → modal ─────────────────────────────────────────────────
+document.getElementById('alerts-tbody').addEventListener('click', e=>{
+  const row=e.target.closest('.alert-row');
+  if(!row) return;
+  const a=allAlerts[+row.dataset.idx];
+  if(!a) return;
+  openModal(a);
+});
+document.getElementById('modal-close').addEventListener('click', closeModal);
+document.getElementById('modal-bg').addEventListener('click', e=>{if(e.target===e.currentTarget)closeModal()});
+document.addEventListener('keydown', e=>{if(e.key==='Escape')closeModal()});
+
+function openModal(a){
+  const ts=a.timestamp?a.timestamp.replace('T',' ').slice(0,19):'N/A';
+  document.getElementById('modal-sev').className=`sev-badge sev-${a.severity}`;
+  document.getElementById('modal-sev').textContent=a.severity.toUpperCase();
+  document.getElementById('modal-name').textContent=a.name;
+  document.getElementById('modal-rule').textContent=`Rule ${a.rule_id} · ${a.log_source}`;
+  document.getElementById('modal-grid').innerHTML=[
+    ['Time',ts],['Username',a.username||'—'],['Source IP',a.source_ip||'—'],
+    ['Destination IP',a.dest_ip||'—'],['Hostname',a.hostname||'—'],['Event ID',a.event_id||'—'],
+  ].map(([l,v])=>`<div class="modal-field"><label>${l}</label><p class="mono">${esc(v)}</p></div>`).join('');
+  document.getElementById('modal-mitre').innerHTML=
+    `<span style="font-size:12px;color:var(--muted)">${esc(a.mitre_tactic)}</span><br>
+     <span class="mitre-tag" style="margin-top:4px;font-size:12px">${esc(a.mitre_technique)}</span>`;
+  document.getElementById('modal-desc').textContent=a.description;
+  document.getElementById('modal-raw').textContent=a.message;
+  document.getElementById('modal-bg').classList.add('open');
+}
+function closeModal(){document.getElementById('modal-bg').classList.remove('open')}
+
+// ── Timeline canvas chart ──────────────────────────────────────────────
+function drawTimeline(data){
+  const canvas=document.getElementById('timeline-canvas');
+  const wrap=canvas.parentElement;
+  if(!data.length){canvas.style.display='none';return}
+  canvas.style.display='';
+  const W=Math.max(wrap.clientWidth||600, data.length*48+60);
+  canvas.width=W; canvas.height=130;
+  const ctx=canvas.getContext('2d');
+  ctx.clearRect(0,0,W,130);
+
+  const cols={critical:'#ff6b6b',high:'#ffa94d',medium:'#74c0fc',low:'#69db7c'};
+  const sevs=['critical','high','medium','low'];
+  const PAD={l:40,r:10,t:10,b:28};
+  const cW=(W-PAD.l-PAD.r)/data.length;
+  const maxTotal=Math.max(...data.map(d=>sevs.reduce((s,k)=>s+(d[k]||0),0)),1);
+  const chartH=130-PAD.t-PAD.b;
+
+  data.forEach((d,i)=>{
+    let y=PAD.t+chartH;
+    sevs.slice().reverse().forEach(sev=>{
+      const v=d[sev]||0;
+      if(!v) return;
+      const h=Math.round(v/maxTotal*chartH);
+      ctx.fillStyle=cols[sev];
+      ctx.fillRect(PAD.l+i*cW+2, y-h, cW-4, h);
+      y-=h;
+    });
+    // Hour label
+    ctx.fillStyle='#8b949e';
+    ctx.font='10px sans-serif';
+    ctx.textAlign='center';
+    ctx.fillText(d.hour, PAD.l+i*cW+cW/2, 130-8);
+  });
+
+  // Y axis label
+  ctx.fillStyle='#8b949e';
+  ctx.font='10px sans-serif';
+  ctx.textAlign='right';
+  ctx.fillText(maxTotal, PAD.l-4, PAD.t+10);
+  ctx.fillText('0', PAD.l-4, PAD.t+chartH);
+}
+
+// ── MITRE ATT&CK heatmap ───────────────────────────────────────────────
+const MITRE_TACTICS = [
+  {id:'TA0043',name:'Reconnaissance'},
+  {id:'TA0042',name:'Resource Development'},
+  {id:'TA0001',name:'Initial Access'},
+  {id:'TA0002',name:'Execution'},
+  {id:'TA0003',name:'Persistence'},
+  {id:'TA0004',name:'Privilege Escalation'},
+  {id:'TA0005',name:'Defense Evasion'},
+  {id:'TA0006',name:'Credential Access'},
+  {id:'TA0007',name:'Discovery'},
+  {id:'TA0008',name:'Lateral Movement'},
+  {id:'TA0009',name:'Collection'},
+  {id:'TA0011',name:'Command and Control'},
+  {id:'TA0010',name:'Exfiltration'},
+  {id:'TA0040',name:'Impact'},
+];
+function renderMitreHeatmap(tacticCounts){
+  const max = Math.max(...Object.values(tacticCounts), 1);
+  const cells = MITRE_TACTICS.map(t => {
+    const count = tacticCounts[t.name] || 0;
+    const cls = count === 0 ? 'hit-0' : count / max < 0.34 ? 'hit-low' : count / max < 0.67 ? 'hit-med' : 'hit-high';
+    return `<div class="mitre-cell ${cls}" title="${t.name}: ${count} alert${count!==1?'s':''}">
+      <div class="tactic-name">${t.name}</div>
+      <div class="tactic-id">${t.id}</div>
+      <div class="tactic-count">${count}</div>
+    </div>`;
+  });
+  document.getElementById('mitre-heatmap').innerHTML =
+    `<div class="mitre-grid">${cells.join('')}</div>`;
+}
+
+// ── Bar chart helper ───────────────────────────────────────────────────
+function renderBars(id, counts, colorMap){
+  const el=document.getElementById(id);
+  const entries=Object.entries(counts||{}).sort((a,b)=>b[1]-a[1]);
+  const max=Math.max(...entries.map(e=>e[1]),1);
+  el.innerHTML=entries.map(([k,v])=>{
+    const pct=Math.round(v/max*100);
+    const col=(colorMap&&colorMap[k])||'#58a6ff';
+    return `<div class="bar-row">
+      <div class="bar-lbl" title="${esc(k)}">${esc(k)}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${col}"></div></div>
+      <div class="bar-cnt">${v}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── Utils ──────────────────────────────────────────────────────────────
+function show(...ids){ids.forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=''})}
+function setText(id,v){document.getElementById(id).textContent=v}
+function setLoading(on,msg=''){
+  document.getElementById('loading').classList.toggle('show',on);
+  if(msg) document.getElementById('load-msg').textContent=msg;
+}
+function toast(msg,err=false){
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.className='show'+(err?' err':'');
+  clearTimeout(el._t); el._t=setTimeout(()=>el.className='',5000);
+}
+function esc(s){
+  if(!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+</script>
+</body>
+</html>
