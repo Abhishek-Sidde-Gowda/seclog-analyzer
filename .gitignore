@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pyo
+.env
+exports/
+*.pdf
+*.DS_Store
+/tmp/
+.claude/
+**/__pycache__/
