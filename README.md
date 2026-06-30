@@ -1,20 +1,26 @@
 # SecLog Analyzer
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-seclog--analyzer.onrender.com-blue?style=flat-square)](https://seclog-analyzer.onrender.com)
+[![Python](https://img.shields.io/badge/Python-3.11+-green?style=flat-square&logo=python)](https://python.org)
+[![Flask](https://img.shields.io/badge/Flask-Web%20Dashboard-lightgrey?style=flat-square&logo=flask)](https://flask.palletsprojects.com)
+[![MITRE ATT&CK](https://img.shields.io/badge/MITRE%20ATT%26CK-22%20Rules-red?style=flat-square)](https://attack.mitre.org)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
+
 **Live demo: [seclog-analyzer.onrender.com](https://seclog-analyzer.onrender.com)**
 
-A security log analysis tool that ingests logs from multiple sources, maps findings to **MITRE ATT&CK**, scores statistical anomalies, and presents everything in an interactive web dashboard with PDF/CSV export.
+A security log analysis platform that ingests logs from **6 different formats**, maps findings to **MITRE ATT&CK**, scores statistical anomalies, and presents everything in an interactive web dashboard with PDF/CSV export — deployable in under 5 minutes with no paid tools.
 
-Built as a portfolio project demonstrating detection engineering principles — the same conceptual approach as ML-based IDS research, applied to a practical SOC tooling context.
+> Built as an MSc Cybersecurity portfolio project (University of Hertfordshire) demonstrating detection engineering principles applicable to real-world SOC environments.
 
 ---
 
 ## What it does
 
-- **Parses 5 log formats** — Windows EVTX, Linux syslog, CSV, JSON, Apache/Nginx access logs, and CEF (firewall/SIEM exports) — normalizing everything into a common event schema
+- **Parses 6 log formats** — Windows EVTX, Linux syslog, CSV, JSON, Apache/Nginx access logs, and CEF (firewall/SIEM exports) — normalizing everything into a common event schema
 - **22 MITRE ATT&CK-mapped detection rules** covering brute force (T1110), privilege escalation (T1078, T1548), persistence (T1053, T1543, T1136), defense evasion (T1070), pass-the-hash (T1550), lateral movement (T1021), firewall C2/recon (T1571, T1046), and web recon (T1083, T1190)
 - **Statistical anomaly scorer** — baselines per-user/per-action hourly frequency, flags deviations >2σ, and detects new-IP logins after prior failures (post-brute-force compromise signal)
 - **Alert deduplication** — groups repeated events (e.g. 48 brute-force attempts → 1 grouped alert with count) instead of flooding the table
-- **Web dashboard** — drag-and-drop upload, stat cards, **MITRE ATT&CK coverage heatmap** (all 14 tactics color-coded by alert volume), severity/timeline charts, top attacker IPs, filterable+searchable alert table, click-to-detail modal
+- **Web dashboard** — drag-and-drop upload, stat cards, MITRE ATT&CK tactic breakdown, severity/timeline charts, top attacker IPs, filterable+searchable alert table, click-to-detail modal
 - **CLI mode** — same engine, runs headless for automation; outputs terminal / JSON / CSV / PDF
 - **PDF report export** — 4-page structured report suitable for incident response documentation
 
